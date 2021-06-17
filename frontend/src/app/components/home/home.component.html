@@ -1,27 +1,77 @@
-<div id="home-page" class="full-height p-4">
-    <div class="container pt-3">
-        <div class="row pb-5">
-            <div class="col-lg-6 pt-4 my-auto">
-                <div class="tex-center mb-3 d-block d-lg-none">
-                    <h1 class="display-3">PetsLovers</h1>
-                    <h3>Una solución para tu PYME</h3>
+<div class="container-fluid m-0 p-0" id="prueba" >
+    <div id="home-page" class="full-height p-4">
+        <div class="container pt-3">
+            <div class="row pb-5">
+                <div class="col-lg-6 pt-4 my-auto">
+                    <div class="tex-center mb-3 d-block d-lg-none">
+                        <h1 class="display-3">PetsLovers</h1>
+                        <h3>Una solución para tu PYME</h3>
+                    </div>
+                    <img id="main-image" src="../../../assets/images/pets.jpg" class="img-fluig">
                 </div>
-                <img id="main-image" src="../../../assets/images/pets.jpg" class="img-fluig">
-            </div>
-            <div class="col-lg-6 my-auto pt-4">
-                <div class="tex-center mb-3 d-none d-lg-block">
-                    <h1 class="display-3">PetsLovers</h1>
-                    <h3>Una solución para tu PYME</h3>
-                </div>
-                <div class="border p-3 p-md-5 bg-white rounded shadow">
-                    <h2>¡Únete a nosotros gratis!</h2>
-                    <form ref="form">
-                        <div class="form-group">
-                            <label for="emailSignup" class="inputText">Crea tu cuenta ahora</label>
-                        
-                            <button mat-button>REGISTRARSE</button>
-                        </div>
-                    </form>
+                <div class="col-lg-6 my-auto pt-4">
+                    <div class="tex-center mb-3 d-none d-lg-block">
+                        <h1 class="display-3 header">PetsLovers</h1>
+                        <h3 class="header">Become a real animal lover</h3>
+                    </div>
+                    <mat-card>
+                        <mat-card-content>
+                            <div class="header">
+                                <h2>Register now</h2>
+                            </div>
+                            <form (ngSubmit)="onRegister()" name="registerForm" [formGroup]="registerForm">
+                                <div class="email-input">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Email</mat-label>
+                                        <input formControlName="email" matInput required />
+                                        <mat-error *ngIf="registerForm.controls.email.errors">
+                                            Required email address
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Password</mat-label>
+                                        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required />
+                                        <button mat-icon-button matSuffix (click)= "hide = !hide"
+                                            [attr.aria-label] = "'Hide Password'" [attr.aria-pressed] = "hide">
+                                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                        <mat-error *ngIf="registerForm.get('password')!.errors">
+                                            Required password
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Confirm password</mat-label>
+                                        <input formControlName="confirmPassword" matInput [type]="hide ? 'password' : 'text'" required />
+                                        <button mat-icon-button matSuffix (click)= "hide = !hide"
+                                            [attr.aria-label] = "'Hide Password'" [attr.aria-pressed] = "hide">
+                                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                        <mat-error *ngIf="registerForm.hasError('passwordsNotMatching')">
+                                            Passwords not matching
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Role</mat-label>
+                                        <mat-select [(value)]="selected" formControlName="role">
+                                          <mat-option value="user">User</mat-option>
+                                          <mat-option value="admin">Administrator</mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="registerForm.controls.role.errors">
+                                            Required role
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <button mat-flat-button color="primary" [disabled]="!registerForm.valid">Register</button>
+                            </form>
+                            <mat-error *ngIf="registerForm.hasError('passwordsNotMatching')" class="email-input">Passwords not matching</mat-error>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </div>

@@ -1,0 +1,18 @@
+mat-card {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10%;
+    width: 40%;
+}
+
+.header {
+    text-align: center;
+}
+
+.full-width {
+    width: 80%;
+}
+
+.email-input {
+    margin-top: 4%;
+}

@@ -1,4 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import Swal from 'sweetalert2';
+
+class CustomValidators {
+  static passwordsMatch(control: AbstractControl) : ValidationErrors {
+    const password = control.get('password')!.value;
+    const confirmPassword = control.get('confirmPassword')!.value;
+
+    if((password === confirmPassword) && (password != null && confirmPassword != null)) {
+      return null as any;
+    }else {
+      return {passwordsNotMatching: true};
+    }
+  }
+}
 
 @Component({
   selector: 'app-home',
@@ -7,9 +25,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  @Input() error: string | null;
+  registerForm : FormGroup; 
+  hide : boolean = true;
+  selected = 'user';
+  constructor(
+    private authService : AuthenticationService,
+    private formBuilder: FormBuilder,
+    private router : Router
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      email : new FormControl(null, [Validators.required, Validators.email]),
+      password : new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      confirmPassword : new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      role : new FormControl(null, [Validators.required])
+    }, {
+      validators: CustomValidators.passwordsMatch
+    })
+
+     
+  }
+
+  onRegister() {
+    if(this.registerForm.invalid) {
+      return;
+    }
+    this.authService.register(this.registerForm.value).then(rs => {
+      Swal.fire('Registro exitoso', '', 'success')
+      })
+      .catch(err => {
+        console.log(err);
+        this.error = err.error.mensaje;
+        Swal.fire('Hubo un error en el registro', '', 'error')
+      }
+    )
   }
 
 }

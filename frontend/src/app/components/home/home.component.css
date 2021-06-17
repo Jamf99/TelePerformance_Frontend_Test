@@ -1,0 +1,32 @@
+#home-page {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+  
+#main-image {
+    max-height: 75vh;
+}
+  
+.inputText {
+    margin-bottom: 3%;
+}
+
+mat-card {
+    margin: 2em auto;
+    text-align: center;
+}
+
+.header {
+    text-align: center;
+}
+
+.full-width {
+    width: 80%;
+}
+
+.email-input {
+    margin-top: 4%;
+}
+
