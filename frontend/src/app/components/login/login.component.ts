@@ -32,7 +32,10 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.register(this.loginForm.value).then(rs => {
-      Swal.fire('Bienvenido '+this.loginForm.get('email'), '', 'success');
+      Swal.fire('Bienvenido '+this.loginForm.get('email')!.value, '', 'success');
+      localStorage.setItem("email", this.loginForm.get('email')!.value);
+      localStorage.setItem("status", 'connect');
+      console.log(typeof(this.loginForm.get('email')))
       this.router.navigate(['banner']);
       })
       .catch(err => {

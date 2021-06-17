@@ -16,13 +16,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { UserViewComponent } from './components/user-view/user-view.component';
+import { AdminViewComponent } from './components/admin-view/admin-view.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    UserViewComponent,
+    AdminViewComponent
   ],
   imports: [
     HttpClientModule,
@@ -36,7 +41,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]

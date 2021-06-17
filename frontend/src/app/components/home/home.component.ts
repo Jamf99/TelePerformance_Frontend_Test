@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
       return;
     }
     this.authService.register(this.registerForm.value).then(rs => {
-      Swal.fire('Registro exitoso', '', 'success')
+      Swal.fire('Registro exitoso', '', 'success');
       })
       .catch(err => {
         console.log(err);
