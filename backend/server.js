@@ -23,14 +23,14 @@ const dogs = require('./data/dogs.json');
 
 router.route("/cats").post((req, res) => {
     if(req.body.token != null && req.body.role === 'admin') {
-        res.json(cats);
+        return res.json(cats);
     }
     return res.status(401).send('Unauthorized');
 });
 
 router.route("/dogs").post((req, res) => {
     if(req.body.token != null && req.body.role === 'user') {
-        res.json(dogs);
+        return res.json(dogs);
     }
     return res.status(401).send('Unauthorized');
 });

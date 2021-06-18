@@ -22,12 +22,14 @@
     "@angular/router": "~12.0.4",
     "@ngrx/store": "^12.1.0",
     "@popperjs/core": "^2.9.2",
+    "@types/underscore": "^1.11.2",
     "boostrap": "^2.0.0",
     "bootstrap": "^5.0.1",
     "jquery": "^3.6.0",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.0.17",
     "tslib": "^2.1.0",
+    "underscore": "^1.13.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
