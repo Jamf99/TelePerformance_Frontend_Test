@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { error } from '@angular/compiler/src/util';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import Swal from 'sweetalert2';
 
@@ -25,7 +25,6 @@ class CustomValidators {
 })
 export class HomeComponent implements OnInit {
 
-  @Input() error: string | null;
   registerForm : FormGroup; 
   hide : boolean = true;
   selected = 'user';
@@ -52,15 +51,21 @@ export class HomeComponent implements OnInit {
     if(this.registerForm.invalid) {
       return;
     }
-    this.authService.register(this.registerForm.value).then(rs => {
-      Swal.fire('Registro exitoso', '', 'success');
+    this.authService.register(this.registerForm.value).then((res : any) => {
+      localStorage.setItem("token", res.dataUser.accessToken);
+      localStorage.setItem("email", res.dataUser.email);
+      localStorage.setItem("role", res.dataUser.role);
+      if(res.dataUser.role === 'admin') {
+        this.router.navigate(['admin']);
+      }else{
+        this.router.navigate(['user']);
+      }
+      Swal.fire('Registro exitoso', 'Bienvenido '+this.registerForm.get('email')!.value, 'success')
       })
       .catch(err => {
-        console.log(err);
-        this.error = err.error.mensaje;
-        Swal.fire('Hubo un error en el registro', '', 'error')
+        Swal.fire(err.message, '', 'error')
       }
     )
   }
 
-}
+} 

@@ -22,12 +22,12 @@ export class AuthenticationService {
 
   register(registerForm: RegisterForm) {
     return this.http.post('/api/register', {email: registerForm.email, password: registerForm.password, role: registerForm.role})
-    .toPromise().then(res => console.log(res))
+    .toPromise();
   }
 
   login(loginForm: LoginForm) {
     return this.http.post('/api/login', {email: loginForm.email, password: loginForm.password})
-    .toPromise().then(res => console.log(res))
+    .toPromise();
   }
 
 }

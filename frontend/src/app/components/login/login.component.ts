@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("email", this.loginForm.get('email')!.value);
       localStorage.setItem("status", 'connect');
       console.log(typeof(this.loginForm.get('email')))
-      this.router.navigate(['banner']);
+      this.router.navigate(['']);
       })
       .catch(err => {
         console.log(err);
