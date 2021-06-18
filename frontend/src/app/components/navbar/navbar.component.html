@@ -1,5 +1,8 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
     <a class="logo" [routerLink] = "['/']" routerLinkActive><mat-icon>pets</mat-icon><span>PetsLover</span></a>
     <div class="spacer"></div>
-    <a mat-raised-button color="accent" [routerLink] = "['/login']" routerLinkActive>Login</a>
+    <p *ngIf="token !=''" style="margin-right: 2%;">Bienvenido {{email}}</p>
+    <a mat-raised-button *ngIf="token ==''" color="accent" [routerLink] = "['/login']" routerLinkActive>Login</a>
+    <a mat-raised-button *ngIf="token !=''" color="secondary" (click)="logout()">Logout</a>
+    
 </mat-toolbar>

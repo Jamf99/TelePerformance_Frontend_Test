@@ -2,9 +2,9 @@ import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import Swal from 'sweetalert2';
-
+import { CommonService } from 'src/app/services/common/common.service';
 class CustomValidators {
   static passwordsMatch(control: AbstractControl) : ValidationErrors {
     const password = control.get('password')!.value;
@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private authService : AuthenticationService,
     private formBuilder: FormBuilder,
-    private router : Router
+    private router : Router,
+    private commonService : CommonService
   ) { }
 
   ngOnInit() {
@@ -60,10 +61,11 @@ export class HomeComponent implements OnInit {
       }else{
         this.router.navigate(['user']);
       }
-      Swal.fire('Registro exitoso', 'Bienvenido '+this.registerForm.get('email')!.value, 'success')
+      this.commonService.sendUpdate('Logged');
+      Swal.fire('Registro exitoso', 'Bienvenido '+this.registerForm.get("email")!.value, 'success')
       })
       .catch(err => {
-        Swal.fire(err.message, '', 'error')
+        Swal.fire('El email ya se encuetra registrado', '', 'error')
       }
     )
   }

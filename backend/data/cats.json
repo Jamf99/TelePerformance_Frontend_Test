@@ -1,0 +1,22 @@
+[   {
+        "id": 1,
+        "name": "Aegean"
+    },
+    {
+        "id": 2,
+        "name": "Persian"
+    },
+    
+    {
+        "id": 3,
+        "name": "Ragdoll"
+    },
+    {
+        "id": 4,
+        "name": "Maine Coon"
+    },
+    {
+        "id": 5,
+        "name": "Sphynx"
+    }
+]

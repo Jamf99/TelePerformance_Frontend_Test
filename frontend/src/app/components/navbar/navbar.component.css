@@ -6,3 +6,10 @@
     text-decoration: none;
     color: inherit;
 }
+
+p {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    padding-top: 0.6%;
+}

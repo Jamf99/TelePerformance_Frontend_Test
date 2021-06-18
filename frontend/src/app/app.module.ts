@@ -19,6 +19,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { UserViewComponent } from './components/user-view/user-view.component';
 import { AdminViewComponent } from './components/admin-view/admin-view.component';
 import { StoreModule } from '@ngrx/store';
+import { UppercasePipe } from './pipes/uppercase.pipe';
+import { MatListModule } from '@angular/material/list';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { StoreModule } from '@ngrx/store';
     NavbarComponent,
     HomeComponent,
     UserViewComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    UppercasePipe,
+    SortPipe
   ],
   imports: [
     HttpClientModule,
@@ -42,6 +47,7 @@ import { StoreModule } from '@ngrx/store';
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatListModule,
     StoreModule.forRoot({}, {})
   ],
   providers: [],

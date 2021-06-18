@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidationErrors } from '@angular/forms';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import Swal from 'sweetalert2';
+import { CommonService } from 'src/app/services/common/common.service';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +11,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @Input() error: string | null;
   loginForm : FormGroup; 
   hide : boolean = true;
-
   constructor(
     private authService : AuthenticationService,
     private formBuilder: FormBuilder,
-    private router : Router
+    private router : Router,
+    private commonService : CommonService
   ) { }
 
   ngOnInit(): void {
@@ -31,16 +31,19 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.invalid) {
       return;
     }
-    this.authService.register(this.loginForm.value).then(rs => {
-      Swal.fire('Bienvenido '+this.loginForm.get('email')!.value, '', 'success');
-      localStorage.setItem("email", this.loginForm.get('email')!.value);
-      localStorage.setItem("status", 'connect');
-      console.log(typeof(this.loginForm.get('email')))
-      this.router.navigate(['']);
+    this.authService.login(this.loginForm.value).then((res : any) => {
+      localStorage.setItem("token", res.dataUser.accessToken);
+      localStorage.setItem("email", res.dataUser.email);
+      localStorage.setItem("role", res.dataUser.role);
+      if(res.dataUser.role === 'admin') {
+        this.router.navigate(['admin']);
+      }else{
+        this.router.navigate(['user']);
+      }
+      this.commonService.sendUpdate('Logged');
+      Swal.fire('Registro exitoso', 'Bienvenido '+this.loginForm.get("email")!.value, 'success')
       })
       .catch(err => {
-        console.log(err);
-        this.error = err.error.mensaje;
         Swal.fire('Email o contraseña incorrectos', '', 'error')
       }
     )

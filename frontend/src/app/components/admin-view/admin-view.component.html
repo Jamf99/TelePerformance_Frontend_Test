@@ -1,1 +1,28 @@
-<p>admin-view works!</p>
+<div class="container-fluid m-0 p-0" id="prueba" >
+    <div id="home-page" class="full-height p-4">
+        <div class="container pt-3">
+            <div class="row pb-5">
+                <div class="col-lg-6 pt-4 my-auto">
+                    <div class="text-center mb-3 d-block d-lg-none">
+                        <h1 class="display-3">PetsLovers</h1>
+                        <h3>Una solución para tu PYME</h3>
+                    </div>
+                    <img id="main-image" src="../../../assets/images/cat.png" class="img-fluig">
+                </div>
+                <div class="col-lg-6 my-auto pt-4">
+                    <div class="text-center mb-3 d-none d-lg-block">
+                        <h1 class="display-3 header">CAT LOVER</h1>
+                        <h3 class="header">Role {{userData.role | uppercase}}</h3>
+                    </div>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-list role="list">
+                                <mat-list-item *ngFor="let cat of cats"><mat-icon style="margin-right: 2%;">pets</mat-icon>{{cat}}</mat-list-item>
+                            </mat-list>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
